@@ -41,7 +41,7 @@ c = float(input("Ingresa el valor de c: "))
 resultado = calcular_raices(a, b, c)
 print(resultado)
 
-
+#Caso 1
 
 #El usuario se loguea al sitio como usuario standard user
 #Ordenar los elementos por “price (low to high)”
@@ -79,7 +79,7 @@ else:
 driver.quit()
 
 
-
+#Caso 2
 
 #El usuario se loguea al sitio como usuario standard user
 #Incorporar al carrito todos los elementos
@@ -144,7 +144,7 @@ continue_button.click()
 error_message = driver.find_element(By.CLASS_NAME, "error-message-container")
 errortext = error_message.find_element(By.TAG_NAME, "h3")
 assert errortext.text == "Error: Postal Code is required", "El mensaje de error es incorrecto."
-
+print('La prueba ha finalizado')
 driver.quit()
 
 
@@ -225,7 +225,7 @@ def test_cart_and_checkout():
 if __name__ == "__main__":
     test_cart_and_checkout()
 
-25
+
 #Caso 1 
 
 #Hacer un get a berry/1
