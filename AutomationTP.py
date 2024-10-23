@@ -319,3 +319,8 @@ def test_pikachu_endpoint():
     
 if __name__ == "__main__":
     test_pikachu_endpoint()
+    
+    
+if __name__ == "__main__":
+    import pytest
+    pytest.main(["-q", "--tb=line", "--html=report.html"])
