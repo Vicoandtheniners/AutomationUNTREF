@@ -225,7 +225,7 @@ def test_cart_and_checkout():
 if __name__ == "__main__":
     test_cart_and_checkout()
 
-
+25
 #Caso 1 
 
 #Hacer un get a berry/1
