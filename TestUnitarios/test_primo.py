@@ -1,11 +1,11 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from AutomationTP import es_primo  # Importa la función es_primo desde AutomationTP.py
+from tests.AutomationTP import es_primo  
 
 
 import unittest
-from AutomationTP import es_primo  
+from tests.AutomationTP import es_primo  
 
 class TestEsPrimo(unittest.TestCase):
     def test_primos(self):

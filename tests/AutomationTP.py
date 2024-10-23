@@ -1,46 +1,3 @@
-#Escribir un programa que dado el ingreso de un numero retorne si el mismo es primo o no.
-
-numero = int(input("Ingrese un numero "))
-es_primo= True
-
-if numero <= 1:
-    es_primo = False
-else:
-    for i in range(2, numero):
-        if numero % i == 0:
-            es_primo = False
-
-if es_primo:
-    print ( str(numero) + " es primo ")
-else:
-    print(str(numero) + " no es primo ")
-
-    
-#Escribir una función que dado el ingreso de 3 variables (a, b, c) retorne las raíces resultantes de una ecuación cuadrática.
-
-import math
-
-def calcular_raices(a, b, c):
-    discriminante = b**2 - 4*a*c
-    print(discriminante)
-
-    if discriminante < 0:
-        return "No hay raíces"
-    elif discriminante == 0:
-        raiz = -b / (2 * a)
-        return f"La raíz es: {raiz}"
-    else:
-        raiz1 = (-b + math.sqrt(discriminante)) / (2 * a)
-        raiz2 = (-b - math.sqrt(discriminante)) / (2 * a)
-        return f"Las raíces son: {raiz1} y {raiz2}"
-
-a = float(input("Ingresa el valor de a: "))
-b = float(input("Ingresa el valor de b: "))
-c = float(input("Ingresa el valor de c: "))
-
-resultado = calcular_raices(a, b, c)
-print(resultado)
-
 #Caso 1
 
 #El usuario se loguea al sitio como usuario standard user
@@ -51,32 +8,34 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
-driver = webdriver.Chrome()
+def test_product_sorting():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    driver = webdriver.Chrome(options=options)
 
-driver.get("https://www.saucedemo.com/")
-driver.maximize_window()
+    driver.get("https://www.saucedemo.com/")
+    driver.maximize_window()
 
-username_input = driver.find_element(By.ID, "user-name")
-username_input.send_keys("standard_user")
+    username_input = driver.find_element(By.ID, "user-name")
+    username_input.send_keys("standard_user")
 
-password_input = driver.find_element(By.ID, "password")
-password_input.send_keys("secret_sauce")
+    password_input = driver.find_element(By.ID, "password")
+    password_input.send_keys("secret_sauce")
 
-login_button = driver.find_element(By.ID, "login-button")
-login_button.click()
+    login_button = driver.find_element(By.ID, "login-button")
+    login_button.click()
 
-select = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
-select.select_by_value("lohi")
+    select = Select(driver.find_element(By.CLASS_NAME, "product_sort_container"))
+    select.select_by_value("lohi")
 
-prices = driver.find_elements(By.CLASS_NAME, "inventory_item_price")
-price_list = [float(price.text.replace('$', '')) for price in prices]
-if price_list == sorted(price_list):
-    print("Los productos están correctamente ordenados")
-else:
-    print("Los productos no están ordenados correctamente.")
-driver.quit()
+    prices = driver.find_elements(By.CLASS_NAME, "inventory_item_price")
+    price_list = [float(price.text.replace('$', '')) for price in prices]
+    
+    assert price_list == sorted(price_list), "Los productos no están ordenados correctamente."
+    
+    driver.quit()
+
 
 
 #Caso 2
@@ -95,57 +54,59 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
-driver = webdriver.Chrome()
+def test_sauce_demo():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    driver = webdriver.Chrome(options=options)
 
-driver.get("https://www.saucedemo.com/")
-driver.maximize_window()
+    driver.get("https://www.saucedemo.com/")
+    driver.maximize_window()
 
-username_input = driver.find_element(By.ID, "user-name")
-username_input.send_keys("standard_user")
+    username_input = driver.find_element(By.ID, "user-name")
+    username_input.send_keys("standard_user")
 
-password_input = driver.find_element(By.ID, "password")
-password_input.send_keys("secret_sauce")
+    password_input = driver.find_element(By.ID, "password")
+    password_input.send_keys("secret_sauce")
 
-login_button = driver.find_element(By.ID, "login-button")
-login_button.click()
+    login_button = driver.find_element(By.ID, "login-button")
+    login_button.click()
 
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "inventory_item")))
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "inventory_item")))
 
-items = driver.find_elements(By.CLASS_NAME, "btn_inventory")
-for item in items:
-    item.click()
+    items = driver.find_elements(By.CLASS_NAME, "btn_inventory")
+    for item in items:
+        item.click()
 
-cart_button = driver.find_element(By.CLASS_NAME, "shopping_cart_link")
-cart_button.click()
+    cart_button = driver.find_element(By.CLASS_NAME, "shopping_cart_link")
+    cart_button.click()
 
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "cart_item")))
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "cart_item")))
 
-cart_items = driver.find_elements(By.CLASS_NAME, "cart_item")
-assert len(cart_items) == len(items), "No todos los elementos están."
+    cart_items = driver.find_elements(By.CLASS_NAME, "cart_item")
+    assert len(cart_items) == len(items), "No todos los elementos están."
 
-checkout_button = driver.find_element(By.ID, "checkout")
-checkout_button.click()
+    checkout_button = driver.find_element(By.ID, "checkout")
+    checkout_button.click()
 
-first_name_input = driver.find_element(By.ID, "first-name")
-first_name_input.send_keys("Señora")
-continue_button = driver.find_element(By.CLASS_NAME, "btn_primary")
-continue_button.click()
+    first_name_input = driver.find_element(By.ID, "first-name")
+    first_name_input.send_keys("Señora")
+    continue_button = driver.find_element(By.CLASS_NAME, "btn_primary")
+    continue_button.click()
 
-error_message = driver.find_element(By.CLASS_NAME, "error-message-container")
-errortext = error_message.find_element(By.TAG_NAME, "h3")
-assert errortext.text == "Error: Last Name is required", "El mensaje de error no es el mismo"
+    error_message = driver.find_element(By.CLASS_NAME, "error-message-container")
+    errortext = error_message.find_element(By.TAG_NAME, "h3")
+    assert errortext.text == "Error: Last Name is required", "El mensaje de error no es el mismo"
 
-last_name_input = driver.find_element(By.ID, "last-name")
-last_name_input.send_keys("Vacalinda")
-continue_button.click()
+    last_name_input = driver.find_element(By.ID, "last-name")
+    last_name_input.send_keys("Vacalinda")
+    continue_button.click()
 
-error_message = driver.find_element(By.CLASS_NAME, "error-message-container")
-errortext = error_message.find_element(By.TAG_NAME, "h3")
-assert errortext.text == "Error: Postal Code is required", "El mensaje de error es incorrecto."
-print('La prueba ha finalizado')
-driver.quit()
+    error_message = driver.find_element(By.CLASS_NAME, "error-message-container")
+    errortext = error_message.find_element(By.TAG_NAME, "h3")
+    assert errortext.text == "Error: Postal Code is required", "El mensaje de error es incorrecto."
+
+    driver.quit()
 
 
 
@@ -155,7 +116,6 @@ driver.quit()
 #El usuario se loguea al sitio como usuario standard user
 #Agregar un elemento al carrito
 #Ir al carrito
-#Remover el artículo
 #Verificar que el sitio no tiene artículos agregados
 #Ir a Continue Shopping
 #Agregar dos elementos
@@ -174,7 +134,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 def test_cart_and_checkout():
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    driver = webdriver.Chrome(options=options)
     driver.get("https://www.saucedemo.com/")
 
 
@@ -235,7 +197,7 @@ if __name__ == "__main__":
 
 import requests
 
-def testberryendpoint():
+def test_berry_endpoint():
     url = "https://pokeapi.co/api/v2/berry/1"
 
     response = requests.get(url)
@@ -252,8 +214,7 @@ def testberryendpoint():
     print('La prueba ha finalizado')
     
 if __name__ == "__main__":
-    testberryendpoint()
-
+    test_berry_endpoint()
 
 
 #Caso 2
@@ -290,7 +251,6 @@ if __name__ == "__main__":
 
 
 
-
 #Caso 3
 
 #Hacer un get a pikachu (https://pokeapi.co/api/v2/pokemon/pikachu/)
@@ -302,25 +262,18 @@ import requests
 
 def test_pikachu_endpoint():
     url = "https://pokeapi.co/api/v2/pokemon/pikachu/"
-    
+
     response = requests.get(url)
-    
+
     assert response.status_code == 200, f"Error: {response.status_code}. No se pudo acceder al endpoint."
-    
+
     pikachu_data = response.json()
-    
+
     base_experience = pikachu_data['base_experience']
     assert 10 < base_experience < 1000, f"La experiencia base de Pikachu debe ser mayor a 10 y menor a 1000, pero se recibió {base_experience}."
-    
+
     types = [type_info['type']['name'] for type_info in pikachu_data['types']]
     assert "electric" in types, f"Pikachu debe ser de tipo 'electric', pero se encontró: {types}."
-    print('La prueba ha finalizado')
-    
-    
+
 if __name__ == "__main__":
     test_pikachu_endpoint()
-    
-    
-if __name__ == "__main__":
-    import pytest
-    pytest.main(["-q", "--tb=line", "--html=report.html"])
